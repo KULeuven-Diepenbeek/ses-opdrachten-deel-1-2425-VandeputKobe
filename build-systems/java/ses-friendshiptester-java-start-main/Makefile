@@ -1,4 +1,3 @@
-# TODO
 MAINCLASS = App
 JAR = app.jar
 
