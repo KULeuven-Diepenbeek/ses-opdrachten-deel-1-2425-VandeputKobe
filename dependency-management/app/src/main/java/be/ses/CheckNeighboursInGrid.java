@@ -1,10 +1,7 @@
 package be.ses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.checkerframework.checker.units.qual.A;
 
 public class CheckNeighboursInGrid {
 /**
@@ -24,7 +21,7 @@ public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid, int
     }
     
     if (indexToCheck >= height * width || indexToCheck < 0) {
-        throw new IllegalArgumentException("Index out of bounds");
+        throw new ArithmeticException("Fout: Index " + indexToCheck + " ligt buiten de geldige grenzen (0 - " + (width * height - 1) + ")");
     }
     
     int waarde = gridList.get(indexToCheck);

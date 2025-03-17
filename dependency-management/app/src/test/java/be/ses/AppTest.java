@@ -10,7 +10,8 @@ import java.util.ArrayList;
 import static org.assertj.core.api.Assertions.*;
 
 public class AppTest {
-    @Test public void gegevenGrid_wanneerGetNeighboursInGrid_danResult4() {
+    @Test 
+    public void gegevenGrid_wanneerGetNeighboursInGridIndex5TestWaarDeIndexInHetMiddenIs_danResult4() {
         // Arrange
         ArrayList<Integer> grid = new ArrayList<Integer>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
 
@@ -19,5 +20,64 @@ public class AppTest {
 
         // Assert
         assertThat(result).isEqualTo(Arrays.asList(2,4,10));
+    }
+
+    @Test
+    public void gegevenGrid_wanneerGetNeighboursInGridIndex17TestWaarDeIndexBuitenDeGridIs_danArithmeticException() {
+        // Arrange
+        ArrayList<Integer> grid = new ArrayList<>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
+
+        // Act & Assert
+        assertThatCode(() -> CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 17))
+            .isInstanceOf(ArithmeticException.class) 
+            .hasMessage("Fout: Index 17 ligt buiten de geldige grenzen (0 - 15)"); 
+    }
+
+    @Test
+    public void gegevenGrid_wanneerGetNeighboursInGridIndex0TestWaarDeIndexInEenHoekIs_danResult1() {
+        // Arrange
+        ArrayList<Integer> grid = new ArrayList<>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
+
+        // Act
+        ArrayList<Integer> result = (ArrayList<Integer>) CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 0);
+
+        // Assert
+        assertThat(result).isEqualTo(Arrays.asList(1));
+    }
+
+    @Test
+    public void gegevenGrid_wanneerGetNeighboursInGridIndex14TestWaarDeIndexAanDeOnderRandIs_danResult10en13en15() {
+        // Arrange
+        ArrayList<Integer> grid = new ArrayList<>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
+
+        // Act
+        ArrayList<Integer> result = (ArrayList<Integer>) CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 14);
+
+        // Assert
+        assertThat(result).isEqualTo(Arrays.asList(10,13,15));
+    }
+
+    @Test
+    public void gegevenGrid_wanneerGetNeighboursInGridIndex11TestWaarDeIndexGeenZelfdeBurenHeeft_danResultLeegeLijst() {
+        // Arrange
+        ArrayList<Integer> grid = new ArrayList<>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
+
+        // Act
+        ArrayList<Integer> result = (ArrayList<Integer>) CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 11);
+
+        // Assert
+        assertThat(result).isEmpty();
+    }
+
+    @Test
+    public void gegevenGrid_wanneerGetNeighboursInGridIndex4TestWaarDeIndexAanDeLinkerRandIs_danResult5() {
+        // Arrange
+        ArrayList<Integer> grid = new ArrayList<>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
+
+        // Act
+        ArrayList<Integer> result = (ArrayList<Integer>) CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 4);
+
+        // Assert
+        assertThat(result).isEqualTo(Arrays.asList(5));
     }
 }
