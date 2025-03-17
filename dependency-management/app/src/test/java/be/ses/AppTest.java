@@ -4,11 +4,20 @@
 package be.ses;
 
 import org.junit.Test;
-import static org.junit.Assert.*;
+
+import java.util.Arrays;
+import java.util.ArrayList;
+import static org.assertj.core.api.Assertions.*;
 
 public class AppTest {
-    @Test public void appHasAGreeting() {
-        App classUnderTest = new App();
-        assertNotNull("app should have a greeting", classUnderTest.getGreeting());
+    @Test public void gegevenGrid_wanneerGetNeighboursInGrid_danResult4() {
+        // Arrange
+        ArrayList<Integer> grid = new ArrayList<Integer>(Arrays.asList(0,0,1,0,1,1,0,2,2,0,1,3,0,1,1,1));
+
+        // Act 
+        ArrayList<Integer> result = (ArrayList<Integer>) CheckNeighboursInGrid.getSameNeighboursIds(grid, 4, 4, 5);
+
+        // Assert
+        assertThat(result).isEqualTo(Arrays.asList(2,4,10));
     }
 }

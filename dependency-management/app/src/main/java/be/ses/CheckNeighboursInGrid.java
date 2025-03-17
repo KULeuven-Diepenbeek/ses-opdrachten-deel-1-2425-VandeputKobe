@@ -15,42 +15,76 @@ public class CheckNeighboursInGrid {
 *@param height - Specifies the height of the grid (extra for checking if 1D grid is complete given the specified width)
 *@param indexToCheck - Specifies the index of the element which neighbours that need to be checked
 */
-public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid,int width, int height, int indexToCheck){
-    // TODO write your code below so you return the correct result
+public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid, int width, int height, int indexToCheck) {
     ArrayList<Integer> result = new ArrayList<>();
     ArrayList<Integer> gridList = new ArrayList<>();
 
     for (Integer value : grid) {
         gridList.add(value);
     }
-    int waarde = gridList.get(indexToCheck);
     
-    if (indexToCheck > height * width - 1 || indexToCheck < 0) {
+    if (indexToCheck >= height * width || indexToCheck < 0) {
         throw new IllegalArgumentException("Index out of bounds");
     }
-
-    if (indexToCheck % width > 0) {
-        if (gridList.get(indexToCheck + 1) == waarde) {
-            result.add(indexToCheck + 1);
-        }
-    }
+    
+    int waarde = gridList.get(indexToCheck);
+    
+    // Controleer linker buur
     if (indexToCheck % width > 0) {
         if (gridList.get(indexToCheck - 1) == waarde) {
             result.add(indexToCheck - 1);
         }
     }
-
-    if (indexToCheck >= width){
+    
+    // Controleer rechter buur
+    if ((indexToCheck + 1) % width != 0) { 
+        if (gridList.get(indexToCheck + 1) == waarde) {
+            result.add(indexToCheck + 1);
+        }
+    }
+    
+    // Controleer boven buur
+    if (indexToCheck >= width) {
         if (gridList.get(indexToCheck - width) == waarde) {
             result.add(indexToCheck - width);
         }
     }
-
-    if (indexToCheck < (height - 1) * width){
+    
+    // Controleer onder buur
+    if (indexToCheck < (height - 1) * width) {
         if (gridList.get(indexToCheck + width) == waarde) {
             result.add(indexToCheck + width);
         }
     }
-    return result;
+    
+    // Controleer linksboven buur
+    if (indexToCheck >= width && indexToCheck % width > 0) {
+        if (gridList.get(indexToCheck - width - 1) == waarde) {
+            result.add(indexToCheck - width - 1);
+        }
     }
+    
+    // Controleer rechtsboven buur
+    if (indexToCheck >= width && (indexToCheck + 1) % width != 0) {
+        if (gridList.get(indexToCheck - width + 1) == waarde) {
+            result.add(indexToCheck - width + 1);
+        }
+    }
+    
+    // Controleer linksonder buur
+    if (indexToCheck < (height - 1) * width && indexToCheck % width > 0) {
+        if (gridList.get(indexToCheck + width - 1) == waarde) {
+            result.add(indexToCheck + width - 1);
+        }
+    }
+    
+    // Controleer rechtsonder buur
+    if (indexToCheck < (height - 1) * width && (indexToCheck + 1) % width != 0) {
+        if (gridList.get(indexToCheck + width + 1) == waarde) {
+            result.add(indexToCheck + width + 1);
+        }
+    }
+    
+    return result;
+}
 }
