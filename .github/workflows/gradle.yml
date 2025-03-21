@@ -27,6 +27,7 @@ jobs:
       with:
         java-version: '17'
         distribution: 'temurin'
+        cache: gradle
 
     # Configure Gradle for optimal use in GitHub Actions, including caching of downloaded dependencies.
     # See: https://github.com/gradle/actions/blob/main/setup-gradle/README.md
@@ -35,8 +36,11 @@ jobs:
 
     - name: Build with Gradle Wrapper
       run: ./gradlew build
+      working-directory: ./dependency-management
 
     - name: Test with Gradle Wrapper
       run: ./gradlew test
+      working-directory: ./dependency-management
+
 
     
