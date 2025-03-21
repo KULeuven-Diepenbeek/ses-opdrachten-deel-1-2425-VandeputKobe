@@ -1,10 +1,7 @@
 package be.ses;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.checkerframework.checker.units.qual.A;
 
 public class CheckNeighboursInGrid {
 /**
@@ -24,11 +21,32 @@ public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid, int
     }
     
     if (indexToCheck >= height * width || indexToCheck < 0) {
-        throw new IllegalArgumentException("Index out of bounds");
+        throw new ArithmeticException("Fout: Index " + indexToCheck + " ligt buiten de geldige grenzen (0 - " + (width * height - 1) + ")");
     }
     
     int waarde = gridList.get(indexToCheck);
     
+    // Controleer linksboven buur
+    if (indexToCheck >= width && indexToCheck % width > 0) {
+        if (gridList.get(indexToCheck - width - 1) == waarde) {
+            result.add(indexToCheck - width - 1);
+        }
+    }
+
+    // Controleer boven buur
+    if (indexToCheck >= width) {
+        if (gridList.get(indexToCheck - width) == waarde) {
+            result.add(indexToCheck - width);
+        }
+    }
+
+    // Controleer rechtsboven buur
+    if (indexToCheck >= width && (indexToCheck + 1) % width != 0) {
+        if (gridList.get(indexToCheck - width + 1) == waarde) {
+            result.add(indexToCheck - width + 1);
+        }
+    }
+
     // Controleer linker buur
     if (indexToCheck % width > 0) {
         if (gridList.get(indexToCheck - 1) == waarde) {
@@ -42,11 +60,11 @@ public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid, int
             result.add(indexToCheck + 1);
         }
     }
-    
-    // Controleer boven buur
-    if (indexToCheck >= width) {
-        if (gridList.get(indexToCheck - width) == waarde) {
-            result.add(indexToCheck - width);
+
+    // Controleer linksonder buur
+    if (indexToCheck < (height - 1) * width && indexToCheck % width > 0) {
+        if (gridList.get(indexToCheck + width - 1) == waarde) {
+            result.add(indexToCheck + width - 1);
         }
     }
     
@@ -56,28 +74,7 @@ public static Iterable<Integer> getSameNeighboursIds(Iterable<Integer> grid, int
             result.add(indexToCheck + width);
         }
     }
-    
-    // Controleer linksboven buur
-    if (indexToCheck >= width && indexToCheck % width > 0) {
-        if (gridList.get(indexToCheck - width - 1) == waarde) {
-            result.add(indexToCheck - width - 1);
-        }
-    }
-    
-    // Controleer rechtsboven buur
-    if (indexToCheck >= width && (indexToCheck + 1) % width != 0) {
-        if (gridList.get(indexToCheck - width + 1) == waarde) {
-            result.add(indexToCheck - width + 1);
-        }
-    }
-    
-    // Controleer linksonder buur
-    if (indexToCheck < (height - 1) * width && indexToCheck % width > 0) {
-        if (gridList.get(indexToCheck + width - 1) == waarde) {
-            result.add(indexToCheck + width - 1);
-        }
-    }
-    
+        
     // Controleer rechtsonder buur
     if (indexToCheck < (height - 1) * width && (indexToCheck + 1) % width != 0) {
         if (gridList.get(indexToCheck + width + 1) == waarde) {
